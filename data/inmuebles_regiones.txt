@@ -1,0 +1,9 @@
+Nombre: Bella casa de piedra  Descripción: Amoblada con dinosaurios  Región: De Valparaíso
+Nombre: Casa Tranquila  Descripción: Casa en zona residencial  Región: Del Libertador B. O'Higgins
+Nombre: Departamento Céntrico  Descripción: Departamento cerca de comercios  Región: Del Libertador B. O'Higgins
+Nombre: Casa de Campo  Descripción: Casa con amplio terreno  Región: Del Maule
+Nombre: Loft Industrial  Descripción: Loft con estilo industrial  Región: Del Maule
+Nombre: Apartamento Luminoso  Descripción: Apartamento con mucha luz natural  Región: Del Maule
+Nombre: Casa Moderna  Descripción: Casa minimalista con piscina  Región: Del Bíobío
+Nombre: Penthouse de Lujo  Descripción: Penthouse con vistas panorámicas  Región: Del Bíobío
+Nombre: Estudio Urbano  Descripción: Estudio en el corazón de la ciudad  Región: De La Araucanía

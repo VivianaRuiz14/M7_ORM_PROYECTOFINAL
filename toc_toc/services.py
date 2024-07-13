@@ -1,9 +1,16 @@
 from django.contrib.auth.models import User
-from toc_toc.models import UserProfile
+from toc_toc.models import UserProfile, Inmueble, Comuna
 from django.db.utils import IntegrityError
+from django.db.models import Q
+from django.db import connection
 
-def crear_inmueble(*args):
-    pass
+def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, num_estacionamientos, num_habitaciones, num_baños, direccion, tipo_inmueble, precio, comuna_cod, propietario_rut):
+
+  comuna = Comuna.objects.get(cod=comuna_cod)
+  propietario = User.objects.get(username=propietario_rut)
+
+  Inmueble.objects.create(nombre=nombre, descripcion=descripcion, m2_construidos=m2_construidos, m2_totales=m2_totales, num_estacionamientos=num_estacionamientos, num_habitaciones=num_habitaciones, num_baños=num_baños, direccion=direccion, tipo_inmueble=tipo_inmueble, precio=precio, comuna=comuna, propietario=propietario)
+
 
 def editar_inmueble(*args):
     pass
@@ -43,3 +50,21 @@ def editar_user(username, first_name, last_name, email, password, direccion, tel
     def eliminar_user(user_id):
         pass
     
+def obtener_inmuebles_comunas(filtro):
+  if filtro is None:
+    return Inmueble.objects.all().order_by('comuna')
+  # si llegamos acá, significa que SI hay un filtro
+  # select * from main_inmueble where nombre like '%Elegante%' or descripcion like '%Elegante%';
+  return Inmueble.objects.filter(Q(nombre__icontains=filtro) | Q(descripcion__icontains=filtro)).order_by('comuna')
+
+def obtener_inmuebles_region(filtro):
+  consulta = '''
+    select I.nombre, I.descripcion, R.nombre as region from toc_toc_inmueble as I
+    join toc_toc_comuna as C on I.comuna_id = C.cod
+    join toc_toc_region as R on C.region_id = R.cod
+    order by R.cod;
+  '''
+  cursor =connection.cursor()
+  cursor.execute(consulta)
+  registros = cursor.fetchall()
+  return registros

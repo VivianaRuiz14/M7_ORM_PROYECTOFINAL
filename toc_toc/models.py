@@ -6,9 +6,20 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='user_profile', on_delete=models.CASCADE)
     direccion = models.CharField(max_length=255)
     telefono = models.CharField(max_length=255, null=True)
-    
+
+class Region(models.Model):
+    cod = models.CharField(max_length=2, primary_key=True)
+    nombre =  models.CharField(max_length=255)  
+def __str__(self) -> str:
+    return f'{self.nombre} ({self.cod})'
+
 class Comuna(models.Model):
+    cod = models.CharField(max_length=5, primary_key=True)
     nombre = models.CharField(max_length=255)
+    region = models.ForeignKey(Region, on_delete=models.RESTRICT, related_name='comunas')
+
+def __str__(self) -> str:
+    return f'{self.nombre} ({self.cod})'
          
 class Inmueble(models.Model):
         
@@ -17,12 +28,12 @@ class Inmueble(models.Model):
     descripcion = models.CharField(max_length=1500)
     m2_construidos = models.IntegerField(validators=[MinValueValidator(1)])
     m2_totales = models.IntegerField(validators=[MinValueValidator(1)])
-    cant_estacionamientos = models.IntegerField(validators=[MinValueValidator(0)], default=0)
-    cant_habitaciones = models.IntegerField(validators=[MinValueValidator(1)], default=1)
-    cant_baños = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    num_estacionamientos = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    num_habitaciones = models.IntegerField(validators=[MinValueValidator(1)], default=1)
+    num_baños = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     direccion = models.CharField(max_length=255)
     tipo_inmueble = models.CharField(max_length=255, choices=tipos)
-    precio_mensual = models.IntegerField(validators=[MinValueValidator(1000)], null=True)
+    precio = models.IntegerField(validators=[MinValueValidator(1000)], null=True)
     precio_ufs = models.FloatField(validators=[MinValueValidator(1.0)], null=True)
     # llaves foraneas
     comuna = models.ForeignKey(Comuna, related_name='inmueble', on_delete=models.RESTRICT)

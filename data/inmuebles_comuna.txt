@@ -1,0 +1,9 @@
+Bella casa de piedra	Amoblada con dinosaurios		Santo Domingo
+Casa Tranquila	Casa en zona residencial		La Estrella
+Departamento Céntrico	Departamento cerca de comercios		Chimbarongo
+Casa de Campo	Casa con amplio terreno		Talca
+Loft Industrial	Loft con estilo industrial		Molina
+Apartamento Luminoso	Apartamento con mucha luz natural		Colbún
+Casa Moderna	Casa minimalista con piscina		Coronel
+Penthouse de Lujo	Penthouse con vistas panorámicas		Yumbel
+Estudio Urbano	Estudio en el corazón de la ciudad		Pucón

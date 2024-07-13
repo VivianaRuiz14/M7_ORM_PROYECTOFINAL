@@ -1,0 +1,9 @@
+nombre,descripcion,m2_construidos,m2_totales,num_estacionamientos,num_habitaciones,num_baños,direccion,precio_mensual_arriendo,tipo_de_inmueble,comuna_cod,rut_propietario
+Casa Tranquila,Casa en zona residencial,140,180,2,3,2,Calle Serenidad 888,450000,casa,06202,01234567-8
+Departamento Céntrico,Departamento cerca de comercios,90,110,1,2,1,Avenida Comercial 999,350000,departamento,06303,89012345-6
+Casa de Campo,Casa con amplio terreno,200,250,3,4,3,Camino Rural 111,600000,casa,07101,78901234-5
+Loft Industrial,Loft con estilo industrial,70,90,0,1,1,Calle Industria 222,250000,departamento,07304,67890123-4
+Apartamento Luminoso,Apartamento con mucha luz natural,60,75,1,1,1,Avenida Sol 333,200000,departamento,07402,56789012-3
+Casa Moderna,Casa minimalista con piscina,180,220,2,4,3,Calle Vanguardia 444,650000,casa,08102,45678901-2
+Penthouse de Lujo,Penthouse con vistas panorámicas,130,160,2,3,2,Avenida Exclusiva 555,850000,departamento,08313,34567890-1
+Estudio Urbano,Estudio en el corazón de la ciudad,50,65,0,1,1,Calle Urbana 666,180000,departamento,09115,23456789-0
