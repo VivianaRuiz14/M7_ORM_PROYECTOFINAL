@@ -3,6 +3,7 @@ from toc_toc.models import UserProfile, Inmueble, Comuna
 from django.db.utils import IntegrityError
 from django.db.models import Q
 from django.db import connection
+from django.contrib import messages 
 
 def crear_inmueble(nombre, descripcion, m2_construidos, m2_totales, num_estacionamientos, num_habitaciones, num_baños, direccion, tipo_inmueble, precio, comuna_cod, propietario_rut):
 
@@ -47,7 +48,20 @@ def editar_user(username, first_name, last_name, email, password, direccion, tel
     user_profile.telefono = telefono
     user_profile.save()
     
-    def eliminar_user(user_id):
+def editar_user_sin_password(username, first_name, last_name, email, direccion, telefono=None) -> list[bool, str]:
+  # 1. Nos traemos el 'user' y modificamos sus datos
+    user = User.objects.get(username=username)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.email = email
+    user.save()
+  # 2. Nos traemos el 'user_profile' y modificamos sus datos
+    user_profile = UserProfile.objects.get(user=user)
+    user_profile.direccion = direccion
+    user_profile.telefono = telefono
+    user_profile.save()
+    
+def eliminar_user(user_id):
         pass
     
 def obtener_inmuebles_comunas(filtro):
@@ -68,3 +82,12 @@ def obtener_inmuebles_region(filtro):
   cursor.execute(consulta)
   registros = cursor.fetchall()
   return registros
+
+def change_password(req, password:str, password_repeat:str):
+  if password != password_repeat:
+    messages.warning(req, 'las contraseñas no coinciden')
+    return
+  req.user.set_password(password)
+  req.user.save()
+  messages.success(req, 'Contraseña Actualizada')
+  

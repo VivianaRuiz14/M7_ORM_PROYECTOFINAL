@@ -1,0 +1,27 @@
+{% load static %} {% block css %}
+
+<style>
+  .img-logo {
+    height: 10rem;
+  }
+</style>
+{% endblock %}
+<div class="text-center">
+  <a href="/"
+    ><img
+      src=" {% static 'img/logo.png' %}"
+      alt="logo toc_toc"
+      class="img-logo"
+  /></a>
+</div>
+<div class="text-end">
+  {% if user.is_authenticated %}
+  <form class="d-flex" role="search" method="post" action="{% url 'logout' %}">
+    <label for="#" class="text-light"
+      >Hola {{user.first_name}} {{user.last_name}}</label
+    >
+    {% csrf_token %}
+    <button class="btn btn-outline-warning" type="submit">Salir</button>
+  </form>
+  {% endif %}
+</div>
