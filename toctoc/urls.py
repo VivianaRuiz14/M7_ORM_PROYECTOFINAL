@@ -23,7 +23,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', home, name='home'),
     path('accounts/profile/', profile, name='profile'),
-    path('accounts/profile/', profile, name='profile'),
+    path('edit-user/', edit_user, name='edith_user'),
     path('accounts/change-pass/', change_password, name='change_password'),
      #Estas son parte de la clase de hoy, no del proyecto
     path('arrendadores/', solo_arrendadores, name='solo_arrendadores'),

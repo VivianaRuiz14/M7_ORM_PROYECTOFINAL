@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 from toc_toc.models import UserProfile, Inmueble, Comuna
 from django.db.utils import IntegrityError
 from django.db.models import Q
@@ -84,10 +85,10 @@ def obtener_inmuebles_region(filtro):
   return registros
 
 def change_password(req, password:str, password_repeat:str):
-  if password != password_repeat:
-    messages.warning(req, 'las contraseñas no coinciden')
-    return
-  req.user.set_password(password)
-  req.user.save()
-  messages.success(req, 'Contraseña Actualizada')
+      if password != password_repeat:
+          messages.warning(req, 'las contraseñas no coinciden')
+          return redirect('profile')
+      req.user.set_password(password)
+      req.user.save()
+      messages.success(req, 'Contraseña Actualizada')
   

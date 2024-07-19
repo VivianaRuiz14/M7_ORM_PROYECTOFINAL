@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
-from toc_toc.services import editar_user_sin_password
+from toc_toc.services import editar_user_sin_password, change_password
 
 # Create your views here.
 @login_required
@@ -44,14 +44,14 @@ def change_password (req):
   # 2. valido que ambas contraseñas coincidan
   if password != password_repeat:
     messages.error(req, 'Las contraseñas no coinciden')
-  return redirect('profile')
+    return redirect('/accounts/profile')
   # 3. actualizamos las contraseñas
   req.user.set_password(password)
   req.user.save()
   messages.success(req,'Contraseña Actualizada')
-  return redirect('profile')
+  return redirect('/accounts/profile')
 
-# pendientes para trabajar con grupos
+# pendientes 
 def solo_arrendadores(req):
   return HttpResponse('sólo arrendadores')
 
