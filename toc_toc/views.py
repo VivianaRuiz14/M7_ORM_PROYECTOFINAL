@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
-from toc_toc.services import editar_user_sin_password, change_password
+from toc_toc.services import editar_user_sin_password
 
 # Create your views here.
 @login_required
@@ -26,6 +26,7 @@ def edit_user(req):
       req.POST['last_name'],
       req.POST['email'],
       req.POST['direccion'],
+      req.POST['rol'],
       req.POST['telefono'])
   else:
     editar_user_sin_password(
@@ -33,7 +34,8 @@ def edit_user(req):
       req.POST['first_name'],
       req.POST['last_name'],
       req.POST['email'],
-      req.POST['direccion'])
+      req.POST['direccion']),
+    req.POST['rol'],
   messages.success(req, "Ha actualizado sus datos con éxito")
   return redirect('/')
 

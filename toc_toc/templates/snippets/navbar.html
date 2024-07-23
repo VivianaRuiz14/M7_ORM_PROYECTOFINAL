@@ -23,6 +23,11 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'profile' %}">Mis Datos</a>
           </li>
+          {% if user.user_profile.rol == 'arrendador' or user.is_staff %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'nuevo_inmueble' %}">Agregar Inmueble</a>
+            </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true"></a>
           </li>
@@ -30,8 +35,8 @@
           <div id="list-group-flush" class="d-flex mx-5" role="search">
 
             {% if user.is_authenticated %}
-            <span class="d-inline-block m-1 text-light" > Hola </span>
-            <form id="logout-form" action="{% url 'logout' %}" method="post">
+              <form class="d-flex" role="search" method="post" action="{% url 'logout' %}">
+                  <label for="#" class="text-light">Hola {{user.first_name}} {{user.last_name}}</label>
               {% csrf_token %}
               <button type="submit" class="btn btn-danger ms-2 btn-sm">Logout</button>
               </form>

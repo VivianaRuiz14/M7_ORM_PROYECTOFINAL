@@ -5,7 +5,7 @@
     <div class="col-3">
       <h3 class="text-center">Cambia tu contraseña</h3>
       <form action="/accounts/change-pass/" method="post">
-        {% csrf_token %}  
+        {% csrf_token %}
         <div class="mb-3">
           <label for="password" class="form-label">Contraseña</label>
           <input
@@ -15,26 +15,26 @@
             id="password"
             placeholder="*****"
             required
-            />
+          />
         </div>
         <div class="mb-3">
-          <label for="password_repeat" class="form-label">Ingresa tú nueva Contraseña</label>
+          <label for="pass_repeat" class="form-label">Repita Contraseña</label>
           <input
             type="password"
             class="form-control"
-            name="password_repeat"
-            id="password_repeat"
+            name="pass_repeat"
+            id="pass_repeat"
             placeholder="*****"
             required
-            />
+          />
         </div>
-        <input type="submit" value="Cambiar" class="btn btn-outline-success">
-      </form>  
+        <input type="submit" value="Cambiar" class="btn btn-danger">
+      </form>
     </div>
     <div class="col-5">
       <h3 class="text-center">Editar datos personales</h3>
       <form action="/edit-user/" method="post">
-        {% csrf_token %}  
+        {% csrf_token %}
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input
@@ -94,6 +94,45 @@
             value="{% if user.user_profile.telefono %}{{user.user_profile.telefono}}{% endif %}"
           />
         </div>
+        <div class="mb-3">
+          <!-- <b>{{user.user_profile.rol}}</b> -->
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="rol"
+              id="arrendador"
+              value="arrendador"
+              required
+              {% if user.user_profile.rol == 'arrendador' %}
+                checked
+              {% endif %}
+            />
+            <label class="form-check-label" for="">Arrendador</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="rol"
+              id="arrendatario"
+              value="arrendatario"
+              required
+              {% if user.user_profile.rol == 'arrendatario'%}
+                checked
+              {% endif %}
+            />
+            <label class="form-check-label" for="">Arrendatario</label>
+          </div>
+          
+        </div>
+
+        <select name="rol2" id="rol2">
+          <option value>Elija su ROL</option>
+          {% for rol in user.user_profile.roles %}
+            <option {% if rol.0 == user.user_profile.rol %}selected{% endif %} value="{{rol.0}}">{{rol.1}}</option>
+          {% endfor %}
+        </select>
         
         <input type="submit" value="Enviar" class="btn btn-outline-success">
       </form>
