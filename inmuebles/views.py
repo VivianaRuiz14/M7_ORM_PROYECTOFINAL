@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import user_passes_test
 from toc_toc.models import Inmueble, Region, Comuna
-from toc_toc.services import crear_inmueble as crear_inmueble_service
+from toc_toc.services import crear_inmueble as crear_inmueble_service, eliminar_inmueble as eliminar_inmueble_service
+from inmuebles.forms import InmuebleForm
 
 # vamos a crear un test que sólo pasan los 'arrendadores'
 def solo_arrendadores(user):
@@ -10,6 +12,29 @@ def solo_arrendadores(user):
     return True
   else:
     return False
+  
+@user_passes_test(solo_arrendadores)
+def editar_inmueble(req, id):
+  if req.method == 'GET':
+    # 1. Se obtiene el inmueble para editar
+    inmueble = Inmueble.objects.get(id=id)
+    # 2. Se obtiene las regiones y las comunas
+    regiones = Region.objects.all()
+    comunas = Comuna.objects.all()
+    # 3.Se obtiene el código de la region
+    # cod_region = inmueble.comuna.region.cod
+    cod_region_actual = inmueble.comuna_id[0:2]
+    # 4. Creo el 'context' con toda la info que requiere
+    context = {
+      'inmueble': inmueble,
+      'regiones': regiones,
+      'comunas': comunas,
+      'cod_region': cod_region_actual
+    }
+    return render(req, 'editar_inmueble.html', context)
+  else:
+    return HttpResponse('Se realizaron modificaciones de manera exitosa')
+
 
 @user_passes_test(solo_arrendadores)
 def nuevo_inmueble(req):
@@ -23,6 +48,13 @@ def nuevo_inmueble(req):
     'comunas': comunas
   }
   return render(req, 'nuevo_inmueble.html', context)
+
+@user_passes_test(solo_arrendadores)
+def eliminar_inmueble(req, id):
+  eliminar_inmueble_service(id)
+  messages.error(req, 'Inmueble ha sido eliminado')
+  return redirect('/accounts/profile/')
+
 
 @user_passes_test(solo_arrendadores)
 def crear_inmueble(req):
@@ -43,4 +75,5 @@ def crear_inmueble(req):
     req.POST['comuna_cod'],
     propietario_rut
   )
-  return HttpResponse('llegamos!')
+  messages.success(req, 'Propiedad Creada')
+  return redirect('/accounts/profile/')
