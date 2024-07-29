@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required
 from toc_toc.models import Inmueble, Region, Comuna
 from toc_toc.services import crear_inmueble as crear_inmueble_service, eliminar_inmueble as eliminar_inmueble_service
 from inmuebles.forms import InmuebleForm
@@ -77,3 +78,15 @@ def crear_inmueble(req):
   )
   messages.success(req, 'Propiedad Creada')
   return redirect('/accounts/profile/')
+
+
+  
+@login_required
+def detalle_inmueble(req, id):
+    id=int(id)
+    inmueble = Inmueble.objects.get(id=id)
+    
+    context ={
+        'inmueble':inmueble
+    }
+    return render(req, 'detalle_inmueble.html', context)

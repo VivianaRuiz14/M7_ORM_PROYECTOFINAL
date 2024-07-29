@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import  include, path
 from toc_toc.views import index, solo_arrendadores, solo_arrendatarios, profile, edit_user, change_password
-from inmuebles.views import nuevo_inmueble, crear_inmueble, editar_inmueble, eliminar_inmueble
+from inmuebles.views import nuevo_inmueble, crear_inmueble, editar_inmueble, eliminar_inmueble, detalle_inmueble
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,8 +29,7 @@ urlpatterns = [
     path('inmuebles/nuevo/', nuevo_inmueble, name='nuevo_inmueble'),
     path('inmuebles/crear/', crear_inmueble, name='crear_inmueble'),
     path('inmuebles/editar/<id>/', editar_inmueble, name='editar_inmueble'),
-    path('inmuebles/eliminar/<id>/', eliminar_inmueble, name='eliminar_inmueble'),
-     #Estas son parte de la clase 
-    path('arrendadores/', solo_arrendadores, name='solo_arrendadores'),
-    path('arrendatarios/', solo_arrendatarios, name='solo_arrendatarios'),
+    path('eliminar/inmueble/<id>/', eliminar_inmueble,name="eliminar_inmueble"),
+    path('detalle/inmueble/<id>/', detalle_inmueble, name='detalle_inmueble'),
+   
 ]

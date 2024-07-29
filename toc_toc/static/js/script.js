@@ -12,3 +12,4 @@ function filtrar_comunas() {
     })
 }
 $('#region_cod').on('change', filtrar_comunas)
+

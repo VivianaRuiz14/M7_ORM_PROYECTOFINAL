@@ -17,7 +17,10 @@ def editar_inmueble(*args):
   pass
 
 def eliminar_inmueble(inmueble_id):
-  Inmueble.objects.get(id=inmueble_id).delete()
+  print('eliminando ' + inmueble_id)
+  i = Inmueble.objects.get(id=inmueble_id)
+  i.delete()
+
 
 def crear_user(username, first_name, last_name, email, password, pass_confirm, direccion, telefono=None) -> list[bool, str]:
   # 1. Validamos que las password coincidan
